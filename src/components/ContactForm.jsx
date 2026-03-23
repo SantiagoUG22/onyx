@@ -65,7 +65,6 @@ const ContactForm = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           
-          {/* Contact Info */}
           <motion.div 
             initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             whileInView={isMobile ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
@@ -83,8 +82,8 @@ const ContactForm = () => {
 
             <div className="space-y-8 flex flex-col items-center lg:items-start">
               {[
-                { icon: Phone, label: 'Llámanos o WhatsApp', value: '+52 (555) 123-4567', color: 'text-onyx-purple', bg: 'group-hover:bg-onyx-purple/20' },
-                { icon: Mail, label: 'Correo Electrónico', value: 'ventas@onyxevents.com', color: 'text-onyx-blue', bg: 'group-hover:bg-onyx-blue/20' },
+                { icon: Phone, label: 'Llámanos o WhatsApp', value: '+52 (442) 451-3250', color: 'text-onyx-purple', bg: 'group-hover:bg-onyx-purple/20' },
+                { icon: Mail, label: 'Correo Electrónico', value: 'onyxeventsqro@gmail.com', color: 'text-onyx-blue', bg: 'group-hover:bg-onyx-blue/20' },
                 { icon: MapPin, label: 'Ubicación', value: 'Santiago de Querétaro, México', color: 'text-onyx-gold', bg: 'group-hover:bg-onyx-gold/20' }
               ].map((item, idx) => (
                 <motion.div 
