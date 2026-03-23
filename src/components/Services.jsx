@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Speaker, Cloud, Sparkles, PartyPopper, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -21,7 +21,7 @@ const services = [
   },
   {
     title: 'Pirotecnia Fría',
-    description: '8 chisperos electrónicos de alta seguridad para momentos clave de tu celebración.',
+    description: 'Chisperos electrónicos de alta seguridad para momentos clave de tu celebración.',
     icon: Sparkles,
     color: 'from-onyx-purple to-pink-600',
     glow: 'shadow-onyx-purple/20',
@@ -38,15 +38,27 @@ const services = [
 ];
 
 const Services = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section id="services" className="py-32 bg-black relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+          viewport={{ once: isMobile ? true : false, amount: 0.01 }}
+          transition={isMobile ? { duration: 0 } : { duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-24"
+          style={{ willChange: isMobile ? "auto" : "transform, opacity" }}
         >
           <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter">
             NUESTROS <span className="bg-gradient-to-r from-onyx-gold via-onyx-purple to-onyx-blue bg-clip-text text-transparent">SERVICIOS</span>
@@ -60,12 +72,17 @@ const Services = () => {
           {services.map((service, index) => (
             <motion.div 
               key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              whileHover={{ y: -10 }}
+              initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+              viewport={{ once: isMobile ? true : false, amount: isMobile ? 0.01 : 0.2 }}
+              transition={isMobile ? { duration: 0 } : { 
+                duration: 0.5, 
+                delay: index * 0.1,
+                ease: [0.16, 1, 0.3, 1]
+              }}
+              whileHover={isMobile ? {} : { y: -10 }}
               className="group relative bg-[#0D0D0D] border border-white/5 p-8 rounded-[2.5rem] transition-all duration-500 hover:border-white/20"
+              style={{ willChange: isMobile ? "auto" : "transform, opacity" }}
             >
               {/* Card Glow Effect */}
               <div className={`absolute -inset-px rounded-[2.5rem] bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-10 transition-opacity blur-xl`}></div>

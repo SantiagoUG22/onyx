@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu, X } from 'lucide-react';
+import logoNegro from '../assets/logo_onyx_negro.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -23,13 +24,18 @@ const Navbar = () => {
       <nav className="fixed top-0 left-0 w-full z-[130] bg-black/80 backdrop-blur-md border-b border-white/10 h-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
           <div className="flex items-center justify-between h-full">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <span className="text-2xl font-bold bg-gradient-to-r from-onyx-gold via-onyx-purple to-onyx-blue bg-clip-text text-transparent">
-                  ONYX EVENTS
-                </span>
+            <a href="#home" onClick={closeMenu} className="flex items-center gap-5 group">
+              <div className="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                <img 
+                  src={logoNegro} 
+                  alt="ONYX Logo" 
+                  className="w-full h-full object-contain"
+                />
               </div>
-            </div>
+              <span className="text-xl md:text-3xl font-black bg-gradient-to-r from-onyx-gold via-onyx-purple to-onyx-blue bg-clip-text text-transparent tracking-tighter">
+                ONYX EVENTS
+              </span>
+            </a>
             
             {/* Desktop Menu */}
             <div className="hidden md:block">

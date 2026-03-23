@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Send, MapPin, Phone, Mail, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const ContactForm = () => {
+  
+  const [isMobile, setIsMobile] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
+
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
+    };
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    return () => window.removeEventListener('resize', checkDevice);
+  }, []);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -53,11 +67,12 @@ const ContactForm = () => {
           
           {/* Contact Info */}
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            whileInView={isMobile ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
+            viewport={{ once: isMobile ? true : false, amount: isMobile ? 0.01 : 0.3 }}
+            transition={isMobile ? { duration: 0 } : { duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="text-center lg:text-left"
+            style={{ willChange: isMobile ? "auto" : "transform, opacity" }}
           >
             <h2 className="text-4xl md:text-6xl font-black mb-10">
               COTIZA TU <span className="bg-gradient-to-r from-onyx-purple to-onyx-blue bg-clip-text text-transparent">EVENTO</span>
@@ -70,15 +85,16 @@ const ContactForm = () => {
               {[
                 { icon: Phone, label: 'Llámanos o WhatsApp', value: '+52 (555) 123-4567', color: 'text-onyx-purple', bg: 'group-hover:bg-onyx-purple/20' },
                 { icon: Mail, label: 'Correo Electrónico', value: 'ventas@onyxevents.com', color: 'text-onyx-blue', bg: 'group-hover:bg-onyx-blue/20' },
-                { icon: MapPin, label: 'Ubicación', value: 'Ciudad de México, México', color: 'text-onyx-gold', bg: 'group-hover:bg-onyx-gold/20' }
+                { icon: MapPin, label: 'Ubicación', value: 'Santiago de Querétaro, México', color: 'text-onyx-gold', bg: 'group-hover:bg-onyx-gold/20' }
               ].map((item, idx) => (
                 <motion.div 
                   key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false }}
-                  transition={{ duration: 0.5, delay: 0.4 + (idx * 0.1) }}
+                  initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+                  whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                  viewport={{ once: isMobile ? true : false }}
+                  transition={isMobile ? { duration: 0 } : { duration: 0.5, delay: 0.2 + (idx * 0.1) }}
                   className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 group text-center sm:text-left"
+                  style={{ willChange: isMobile ? "auto" : "transform, opacity" }}
                 >
                   <div className={`w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center ${item.bg} transition-colors`}>
                     <item.icon size={24} className={item.color} />
@@ -94,11 +110,12 @@ const ContactForm = () => {
 
           {/* Form */}
           <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            whileInView={isMobile ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
+            viewport={{ once: isMobile ? true : false, amount: isMobile ? 0.01 : 0.3 }}
+            transition={isMobile ? { duration: 0 } : { duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="bg-[#121212] p-8 md:p-12 rounded-[40px] border border-white/5 shadow-2xl relative overflow-hidden"
+            style={{ willChange: isMobile ? "auto" : "transform, opacity" }}
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-onyx-purple/10 blur-[60px] rounded-full"></div>
             
@@ -139,7 +156,12 @@ const ContactForm = () => {
                     value={formData.eventDate}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-purple transition-colors text-white [color-scheme:dark]"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-purple transition-colors text-white [color-scheme:dark] appearance-none"
+                    style={{ 
+                      minHeight: "60px",
+                      WebkitAppearance: "none",
+                      position: "relative"
+                    }}
                   />
                 </div>
                 <div className="relative">
@@ -149,6 +171,7 @@ const ContactForm = () => {
                     value={formData.eventType}
                     onChange={handleChange}
                     className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-purple transition-colors text-white appearance-none cursor-pointer pr-12"
+                    style={{ minHeight: "60px" }}
                   >
                     <option value="Boda" className="bg-black">Boda</option>
                     <option value="XV Años" className="bg-black">XV Años</option>

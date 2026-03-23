@@ -1,15 +1,25 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
+import logoNegro from '../assets/logo_onyx_negro.png';
 
 const Footer = () => {
   return (
-    <footer className="bg-black py-6 border-t border-white/5 relative overflow-hidden">
+    <footer className="bg-black py-8 border-t border-white/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex flex-col md:flex-row items-center gap-6">
-            <h2 className="text-xl font-black bg-gradient-to-r from-onyx-gold via-onyx-purple to-onyx-blue bg-clip-text text-transparent">
-              ONYX EVENTS
-            </h2>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
+                <img 
+                  src={logoNegro} 
+                  alt="ONYX Logo" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <h2 className="text-xl md:text-2xl font-black bg-gradient-to-r from-onyx-gold via-onyx-purple to-onyx-blue bg-clip-text text-transparent tracking-tighter">
+                ONYX EVENTS
+              </h2>
+            </div>
             <div className="hidden md:block w-px h-4 bg-white/10"></div>
             <p className="text-gray-500 font-light text-xs max-w-[300px] text-center md:text-left">
               Transformando celebraciones en experiencias extraordinarias.
@@ -24,7 +34,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-6 text-[10px] uppercase tracking-widest font-bold text-gray-500">
+          <div className="flex items-center gap-6 text-xs uppercase tracking-widest font-bold text-gray-500">
             <a href="#home" className="hover:text-onyx-gold transition-colors">Inicio</a>
             <a href="#services" className="hover:text-onyx-gold transition-colors">Servicios</a>
             <a href="#contact" className="hover:text-onyx-gold transition-colors">Cotizar</a>
