@@ -15,30 +15,17 @@ const Hero = () => {
   }, []);
 
   const animProps = (yValue, delayValue = 0) => {
-    if (isMobile) {
-      return {
-        initial: { opacity: 1, y: 0 },
-        animate: { opacity: 1, y: 0 }
-      };
-    }
     return {
-      initial: { opacity: 0, y: yValue },
-      animate: { opacity: 1, y: 0 },
-      transition: { 
-        duration: 0.8, 
-        delay: delayValue, 
-        ease: [0.16, 1, 0.3, 1] 
-      }
+      initial: isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: yValue },
+      whileInView: isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 },
+      viewport: { once: isMobile ? true : false, amount: 0.1 },
+      transition: isMobile ? { duration: 0 } : { duration: 1.2, delay: delayValue, ease: [0.16, 1, 0.3, 1] }
     };
   };
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-0">
-      {/* Background Gradient & Effects */}
-      <div className="absolute inset-0 bg-[#0A0A0A]">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-onyx-purple/20 blur-[120px] rounded-full pointer-events-none"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-onyx-blue/20 blur-[120px] rounded-full pointer-events-none"></div>
-      </div>
+      <div className="absolute inset-0 bg-[#0A0A0A]"></div>
 
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto py-12 md:py-0">
         <motion.h1 
@@ -47,7 +34,7 @@ const Hero = () => {
           style={{ willChange: isMobile ? "auto" : "transform, opacity" }}
         >
           <span className="block text-white">LLEVAMOS TU EVENTO AL</span>
-          <span className="bg-gradient-to-r from-onyx-gold via-onyx-purple to-onyx-blue bg-clip-text text-transparent">
+          <span className="text-onyx-gold">
             SIGUIENTE NIVEL
           </span>
         </motion.h1>
@@ -74,12 +61,11 @@ const Hero = () => {
           </a>
           <a href="#services" className="group relative w-full sm:w-auto px-10 py-5 font-medium rounded-full transition-all backdrop-blur-sm border border-white/10 hover:border-white/40 hover:bg-white/5 overflow-hidden text-white">
             <span className="relative z-10">Ver Servicios</span>
-            <div className="absolute inset-0 bg-gradient-to-tr from-onyx-purple/10 via-transparent to-onyx-blue/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-onyx-gold/10 via-transparent to-onyx-accent/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
           </a>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator - Hidden on very small screens to avoid overlap */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.5 }}

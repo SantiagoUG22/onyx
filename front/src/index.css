@@ -1,9 +1,13 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme {
-  --color-onyx-gold: #FFD700;
-  --color-onyx-purple: #8A2BE2;
-  --color-onyx-blue: #0000FF;
+  --color-onyx-gold: #B89B5E;
+  --color-onyx-accent: #8A7244;
+  --color-onyx-light: #E5D9C2;
   --color-onyx-dark: #0A0A0A;
 
   --animate-shimmer: shimmer 2s linear infinite;

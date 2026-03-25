@@ -1,6 +1,6 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
-import logoNegro from '../assets/logo_onyx_negro.png';
+import logo from '../assets/logo_onyx.png';
 
 const Footer = () => {
   return (
@@ -11,12 +11,12 @@ const Footer = () => {
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
                 <img 
-                  src={logoNegro} 
+                  src={logo} 
                   alt="ONYX Logo" 
                   className="w-full h-full object-contain"
                 />
               </div>
-              <h2 className="text-xl md:text-2xl font-black bg-gradient-to-r from-onyx-gold via-onyx-purple to-onyx-blue bg-clip-text text-transparent tracking-tighter">
+              <h2 className="text-xl md:text-2xl font-black bg-gradient-to-r from-[#C5A021] via-[#F5F5F5] to-[#C5A021] bg-clip-text text-transparent tracking-tight pr-2">
                 ONYX EVENTS
               </h2>
             </div>
@@ -25,17 +25,17 @@ const Footer = () => {
               Transformando celebraciones en experiencias extraordinarias.
             </p>
             <div className="flex gap-3">
-              <a href="https://www.instagram.com/onyxeventsqro/" target="_blank" className="text-gray-500 hover:text-onyx-purple transition-colors">
+              <a href="https://www.instagram.com/onyxeventsqro/" target="_blank" className="text-gray-500 hover:text-onyx-gold transition-colors">
                 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
               </a>
-              <a href="#" className="text-gray-500 hover:text-onyx-blue transition-colors">
+              <a href="#" className="text-gray-500 hover:text-onyx-accent transition-colors">
                 <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
               </a>
             </div>
           </div>
 
           <div className="flex items-center gap-6 text-xs uppercase tracking-widest font-bold text-gray-500">
-            <a href="#home" className="hover:text-onyx-gold transition-colors">Inicio</a>
+            <a href="#intro" className="hover:text-onyx-gold transition-colors">Inicio</a>
             <a href="#services" className="hover:text-onyx-gold transition-colors">Servicios</a>
             <a href="#contact" className="hover:text-onyx-gold transition-colors">Cotizar</a>
             <span className="text-gray-700">© {new Date().getFullYear()}</span>

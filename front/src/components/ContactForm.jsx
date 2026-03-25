@@ -6,6 +6,7 @@ const ContactForm = () => {
   
   const [isMobile, setIsMobile] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const checkDevice = () => {
@@ -22,13 +23,23 @@ const ContactForm = () => {
     email: '',
     eventDate: '',
     eventType: 'Boda',
+    guests: '50-100',
+    services: {
+      audio: true,
+      smoke: true,
+      sparkles: true,
+      confetti: true
+    },
     message: ''
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isLoading) return;
+
+    setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/quote', {
+      const response = await fetch('/api/quote', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -45,6 +56,13 @@ const ContactForm = () => {
           email: '',
           eventDate: '',
           eventType: 'Boda',
+          guests: '50-100',
+          services: {
+            audio: true,
+            smoke: true,
+            sparkles: true,
+            confetti: true
+          },
           message: ''
         });
       } else {
@@ -53,11 +71,24 @@ const ContactForm = () => {
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('Error de conexión con el servidor.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+    if (type === 'checkbox') {
+      setFormData(prev => ({
+        ...prev,
+        services: {
+          ...prev.services,
+          [name]: checked
+        }
+      }));
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   return (
@@ -74,7 +105,7 @@ const ContactForm = () => {
             style={{ willChange: isMobile ? "auto" : "transform, opacity" }}
           >
             <h2 className="text-4xl md:text-6xl font-black mb-10">
-              COTIZA TU <span className="bg-gradient-to-r from-onyx-purple to-onyx-blue bg-clip-text text-transparent">EVENTO</span>
+              COTIZA TU <span className="text-onyx-gold">EVENTO</span>
             </h2>
             <p className="text-gray-400 text-lg mb-12 max-w-md mx-auto lg:mx-0 font-light">
               Estamos listos para transformar tu celebración. Déjanos tus datos y diseñemos juntos una experiencia inolvidable.
@@ -82,8 +113,8 @@ const ContactForm = () => {
 
             <div className="space-y-8 flex flex-col items-center lg:items-start">
               {[
-                { icon: Phone, label: 'Llámanos o WhatsApp', value: '+52 (442) 451-3250', color: 'text-onyx-purple', bg: 'group-hover:bg-onyx-purple/20' },
-                { icon: Mail, label: 'Correo Electrónico', value: 'onyxeventsqro@gmail.com', color: 'text-onyx-blue', bg: 'group-hover:bg-onyx-blue/20' },
+                { icon: Phone, label: 'Llámanos o WhatsApp', value: '+52 (442) 488-3160', color: 'text-onyx-gold', bg: 'group-hover:bg-onyx-gold/20' },
+                { icon: Mail, label: 'Correo Electrónico', value: 'onyxeventsqro@gmail.com', color: 'text-onyx-accent', bg: 'group-hover:bg-onyx-accent/20' },
                 { icon: MapPin, label: 'Ubicación', value: 'Santiago de Querétaro, México', color: 'text-onyx-gold', bg: 'group-hover:bg-onyx-gold/20' }
               ].map((item, idx) => (
                 <motion.div 
@@ -107,7 +138,6 @@ const ContactForm = () => {
             </div>
           </motion.div>
 
-          {/* Form */}
           <motion.div 
             initial={isMobile ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
             whileInView={isMobile ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
@@ -116,7 +146,7 @@ const ContactForm = () => {
             className="bg-[#121212] p-8 md:p-12 rounded-[40px] border border-white/5 shadow-2xl relative overflow-hidden"
             style={{ willChange: isMobile ? "auto" : "transform, opacity" }}
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-onyx-purple/10 blur-[60px] rounded-full"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-onyx-gold/10 blur-[60px] rounded-full"></div>
             
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -128,7 +158,7 @@ const ContactForm = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-purple transition-colors text-white"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-gold transition-colors text-white"
                     placeholder="Tu nombre"
                   />
                 </div>
@@ -140,7 +170,7 @@ const ContactForm = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-purple transition-colors text-white"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-gold transition-colors text-white"
                     placeholder="ejemplo@correo.com"
                   />
                 </div>
@@ -155,7 +185,7 @@ const ContactForm = () => {
                     value={formData.eventDate}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-purple transition-colors text-white [color-scheme:dark] appearance-none"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-gold transition-colors text-white [color-scheme:dark] appearance-none"
                     style={{ 
                       minHeight: "60px",
                       WebkitAppearance: "none",
@@ -169,7 +199,7 @@ const ContactForm = () => {
                     name="eventType"
                     value={formData.eventType}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-purple transition-colors text-white appearance-none cursor-pointer pr-12"
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-gold transition-colors text-white appearance-none cursor-pointer pr-12"
                     style={{ minHeight: "60px" }}
                   >
                     <option value="Boda" className="bg-black">Boda</option>
@@ -182,6 +212,53 @@ const ContactForm = () => {
                 </div>
               </div>
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="relative">
+                  <label className="block text-xs uppercase tracking-widest font-bold text-gray-500 mb-2">Invitados Estimados</label>
+                  <select 
+                    name="guests"
+                    value={formData.guests}
+                    onChange={handleChange}
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-gold transition-colors text-white appearance-none cursor-pointer pr-12"
+                    style={{ minHeight: "60px" }}
+                  >
+                    <option value="<50" className="bg-black">Menos de 50</option>
+                    <option value="50-100" className="bg-black">50 - 100 invitados</option>
+                    <option value="100-150" className="bg-black">100 - 150 invitados</option>
+                    <option value="150-200" className="bg-black">150 - 200 invitados</option>
+                    <option value="200+" className="bg-black">Más de 200 invitados</option>
+                  </select>
+                  <ChevronDown className="absolute right-4 top-[60%] -translate-y-1/2 text-gray-500 pointer-events-none" size={18} />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <label className="block text-xs uppercase tracking-widest font-bold text-gray-500 mb-2">Servicios Requeridos</label>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                    {[
+                      { id: 'audio', label: 'Audio/DJ' },
+                      { id: 'smoke', label: 'Humo' },
+                      { id: 'sparkles', label: 'Pirotecnia' },
+                      { id: 'confetti', label: 'Papel' }
+                    ].map((svc) => (
+                      <label key={svc.id} className="flex items-center gap-2 cursor-pointer group/check">
+                        <div className="relative flex items-center justify-center">
+                          <input 
+                            type="checkbox"
+                            name={svc.id}
+                            checked={formData.services[svc.id]}
+                            onChange={handleChange}
+                            className="peer appearance-none w-5 h-5 border border-white/20 rounded-md bg-white/5 checked:bg-onyx-gold checked:border-onyx-gold transition-all"
+                          />
+                          <svg className="absolute w-3 h-3 text-black opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        </div>
+                        <span className="text-xs text-gray-400 group-hover/check:text-white transition-colors">{svc.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
               <div>
                 <label className="block text-xs uppercase tracking-widest font-bold text-gray-500 mb-2">Mensaje o Requerimientos</label>
                 <textarea 
@@ -189,25 +266,34 @@ const ContactForm = () => {
                   value={formData.message}
                   onChange={handleChange}
                   rows="4"
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-purple transition-colors text-white resize-none"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-onyx-gold transition-colors text-white resize-none"
                   placeholder="Cuéntanos más sobre tu evento..."
                 ></textarea>
               </div>
 
               <button 
                 type="submit" 
-                className="relative w-full py-5 bg-gradient-to-r from-onyx-purple via-onyx-blue to-onyx-purple bg-[length:200%_auto] hover:bg-right transition-all duration-700 rounded-2xl text-white font-bold text-lg flex items-center justify-center gap-3 group shadow-xl shadow-onyx-purple/20 overflow-hidden"
+                disabled={isLoading}
+                className={`relative w-full py-5 bg-gradient-to-r from-[#C5A021] via-[#8E7618] to-[#C5A021] bg-[length:200%_auto] hover:bg-right transition-all duration-700 rounded-2xl text-white font-bold text-lg flex items-center justify-center gap-3 group shadow-xl shadow-[#C5A021]/30 overflow-hidden ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
-                <span className="relative z-10">Enviar Solicitud</span>
-                <Send size={20} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                {isLoading ? (
+                  <div className="flex items-center gap-3">
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    <span>Enviando...</span>
+                  </div>
+                ) : (
+                  <>
+                    <span className="relative z-10">Enviar Solicitud</span>
+                    <Send size={20} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite]"></div>
               </button>
             </form>
           </motion.div>
         </div>
       </div>
-      {/* Background Decorative Aura */}
-      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-onyx-blue/10 blur-[120px] rounded-full pointer-events-none"></div>
+      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-onyx-accent/10 blur-[120px] rounded-full pointer-events-none"></div>
     </section>
   );
 };
