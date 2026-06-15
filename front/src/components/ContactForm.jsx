@@ -113,7 +113,7 @@ const ContactForm = () => {
 
             <div className="space-y-8 flex flex-col items-center lg:items-start">
               {[
-                { icon: Phone, label: 'Llámanos o WhatsApp', value: '+52 (442) 488-3160', color: 'text-onyx-gold', bg: 'group-hover:bg-onyx-gold/20' },
+                { icon: Phone, label: 'Llámanos o WhatsApp', value: '+52 (442) 772-2553', color: 'text-onyx-gold', bg: 'group-hover:bg-onyx-gold/20' },
                 { icon: Mail, label: 'Correo Electrónico', value: 'onyxeventsqro@gmail.com', color: 'text-onyx-accent', bg: 'group-hover:bg-onyx-accent/20' },
                 { icon: MapPin, label: 'Ubicación', value: 'Santiago de Querétaro, México', color: 'text-onyx-gold', bg: 'group-hover:bg-onyx-gold/20' }
               ].map((item, idx) => (

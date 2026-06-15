@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const WhatsAppButton = () => {
-  const phoneNumber = "524424883160";
+  const phoneNumber = "524427722553";
   const message = "Hola ONYX, me gustaría cotizar un evento.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
