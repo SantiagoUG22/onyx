@@ -4,16 +4,16 @@ import { motion } from 'framer-motion';
 
 const services = [
   {
-    title: 'Equipo de Sonido/DJ',
-    description: 'Sistema profesional completo para eventos de hasta 150 personas. Incluye DJ, audio y control.',
+    title: 'Maquina Sparkless',
+    description: 'Máquinas de chispas frías para momentos inolvidables. Efecto seguro, sin humo y sin fuego. Ideal para momentos estelares.',
     icon: Speaker,
     color: 'from-onyx-gold to-onyx-accent',
     glow: 'shadow-onyx-gold/20',
-    tags: ['Profesional', '150 Pax']
+    tags: ['Efecto Visual', 'Seguro']
   },
   {
     title: 'Máquina de Humo',
-    description: 'Efectos atmosféricos de alta densidad para realzar la iluminación y el escenario.',
+    description: 'Creamos la atmósfera perfecta: desde niebla y haze para realzar luces, hasta burbujas para momentos mágicos.',
     icon: Cloud,
     color: 'from-gray-400 to-onyx-gold',
     glow: 'shadow-onyx-gold/20',
@@ -84,12 +84,10 @@ const Services = () => {
               className="group relative bg-[#0D0D0D] border border-white/5 p-10 md:p-12 rounded-[2.5rem] transition-all duration-500 hover:border-white/20"
               style={{ willChange: isMobile ? "auto" : "transform, opacity" }}
             >
-              {/* Card Glow Effect */}
               <div className={`absolute -inset-px rounded-[2.5rem] bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-10 transition-opacity blur-xl`}></div>
               
               <div className={`relative w-16 h-16 mb-12 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center text-white shadow-2xl ${service.glow} group-hover:scale-110 transition-transform duration-500`}>
                 <service.icon size={32} strokeWidth={1.5} />
-                {/* Icon Inner Glow */}
                 <div className="absolute inset-0 rounded-2xl bg-white/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </div>
 
@@ -124,14 +122,12 @@ const Services = () => {
                 </div>
               </div>
 
-              {/* Bottom Decoration */}
               <div className={`absolute bottom-8 right-8 w-12 h-12 bg-gradient-to-br ${service.color} opacity-0 blur-2xl group-hover:opacity-20 transition-opacity`}></div>
             </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Background Decorative Elements */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-onyx-gold/5 blur-[150px] rounded-full pointer-events-none"></div>
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-onyx-accent/5 blur-[150px] rounded-full pointer-events-none"></div>
     </section>

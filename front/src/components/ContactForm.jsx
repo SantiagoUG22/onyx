@@ -25,7 +25,7 @@ const ContactForm = () => {
     eventType: 'Boda',
     guests: '50-100',
     services: {
-      audio: true,
+      machine: true,
       smoke: true,
       sparkles: true,
       confetti: true
@@ -234,7 +234,7 @@ const ContactForm = () => {
                   <label className="block text-xs uppercase tracking-widest font-bold text-gray-500 mb-2">Servicios Requeridos</label>
                   <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                     {[
-                      { id: 'audio', label: 'Audio/DJ' },
+                      { id: 'machine', label: 'Maquina Sparkless' },
                       { id: 'smoke', label: 'Humo' },
                       { id: 'sparkles', label: 'Pirotecnia' },
                       { id: 'confetti', label: 'Papel' }
